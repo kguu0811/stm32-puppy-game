@@ -62,7 +62,9 @@ Core/Src/gme12864.c \
 Core/Src/gpio.c \
 Core/Src/i2c.c \
 Core/Src/usart.c \
-Core/Src/input.c
+Core/Src/input.c \
+Core/Src/bitmaps.c \
+Core/Src/game.c
 
 # ASM sources
 ASM_SOURCES =  \

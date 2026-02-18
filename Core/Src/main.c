@@ -26,8 +26,9 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
-#include "gme12864.h"
 #include "stm32f4xx_hal.h"
+#include "gme12864.h"
+#include "game.h"
 #include "input.h"
 /* USER CODE END Includes */
 
@@ -96,23 +97,16 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   OLED_Init();
-  OLED_Clear();
-  OLED_DrawSquare(square_x, square_y, square_size);
-  OLED_UpdateScreen();
-
-  char msg[20] = {0};
+  Game_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // Poll UART for keypress
-      if (HAL_UART_Receive(&huart2, &rx_byte, 1, HAL_MAX_DELAY) == HAL_OK)
-      {
-        Process_Input(rx_byte, msg);  // handle movement and drawing
-        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY); // echo
-      }
+    Input_Process();
+    Game_Update();
+    Game_Draw();
   /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
